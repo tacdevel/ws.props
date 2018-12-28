@@ -40,9 +40,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <WSProjectName Condition="'$(WSProjectName)' == ''">$(MSBuildProjectName)</WSProjectName>
+    <WSProjectGroup Condition="$(WSProjectName.EndsWith('Example')) AND '$(WSProjectGroup)' == ''">examples</WSProjectGroup>
+    <WSProjectGroup Condition="$(WSProjectName.EndsWith('Tool')) AND '$(WSProjectGroup)' == ''">tools</WSProjectGroup>
     <WSProjectGroup Condition="'$(WSProjectGroup)' == ''">source</WSProjectGroup>
-    <WSProjectGroup Condition="$(WSProjectName.Contains('Example')) AND '$(WSProjectGroup)' == 'source'">examples</WSProjectGroup>
-    <WSProjectGroup Condition="$(WSProjectName.Contains('Tool')) AND '$(WSProjectGroup)' == 'source'">tools</WSProjectGroup>
     <WSProjectGroupPath Condition="'$(WSProjectGroupPath)' == ''">$(WSBasePath)$(WSProjectGroup)\</WSProjectGroupPath>
     <WSProjectGroupCommonPath Condition="'$(WSProjectGroupCommonPath)' == ''">$(WSProjectGroupPath)Common\</WSProjectGroupCommonPath>
     <WSProjectGroupCommonSourcePath Condition="'$(WSProjectGroupCommonSourcePath)' == ''">$(WSProjectGroupCommonPath)src\</WSProjectGroupCommonSourcePath>
@@ -52,7 +53,6 @@
     <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'source'">true</WSProjectIsPackable>
     <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'tools'">true</WSProjectIsPackable>
     <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'examples'">false</WSProjectIsPackable>
-    <WSProjectName Condition="'$(WSProjectName)' == ''">$(MSBuildProjectName)</WSProjectName>
     <WSProjectDescription Condition="'$(WSProjectDescription)' == ''">$(WSProjectName) v$(WSVersionPrefix)</WSProjectDescription>
     <WSProjectDescription Condition="'$(WSVersionSuffix)' != ''">$(WSProjectName) v$(WSVersionPrefix)-$(WSVersionSuffix)</WSProjectDescription>
     <WSProjectPath Condition="'$(WSProjectPath)' == ''">$(WSProjectGroupPath)$(WSProjectName)\</WSProjectPath>

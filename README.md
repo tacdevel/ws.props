@@ -1,5 +1,4 @@
 [![License][Badges.License]][Links.License]
-![MSBuild Version][Badges.MSBuildVersion]
 
 # TACDevel Common MSBuild Properties
 
@@ -19,7 +18,6 @@ then follow steps 3 through 5 listed above.
 
 <!-- Badges -->
 [Badges.License]: https://badgen.net/badge/license/MIT/blue
-[Badges.MSBuildVersion]: https://badgen.net/badge/MSBuild/15.0/purple
 
 <!-- Links -->
 [Links.License]: https://github.com/tacdevel/ws.props/blob/master/LICENSE.md

@@ -5,7 +5,7 @@
 * License:              https://github.com/tacdevel/tcdfx/blob/master/LICENSE.md
 =================================================================================================-->
 
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Condition="Exists('$(MSBuildThisFileDirectory)..\ws.config.props')" Project="$(MSBuildThisFileDirectory)..\ws.config.props"/>
 
   <PropertyGroup>
@@ -33,7 +33,7 @@
     <WSVersionMajor Condition="'$(WSVersionMajor)' == ''">1</WSVersionMajor>
     <WSVersionMinor Condition="'$(WSVersionMinor)' == ''">0</WSVersionMinor>
     <WSVersionPatch Condition="'$(WSVersionPatch)' == ''">0</WSVersionPatch>
-    <WSVersionPrefix Condition="'$(WSVersionPrefix)' == ''">$(WSVersionMajor).$(WSVersionMinor).$(WSVersionPath)</WSVersionPrefix>
+    <WSVersionPrefix Condition="'$(WSVersionPrefix)' == ''">$(WSVersionMajor).$(WSVersionMinor).$(WSVersionPatch)</WSVersionPrefix>
     <WSVersionSuffix Condition="'$(WSVersionSuffix)' == ''"></WSVersionSuffix>
     <WSVersionIsPrerelease Condition="'$(WSVersionSuffix)' != ''">true</WSVersionIsPrerelease>
     <WSVersionIsPrerelease Condition="'$(WSVersionIsPrerelease)' == ''">false</WSVersionIsPrerelease>
@@ -47,9 +47,10 @@
     <WSProjectGroupPath Condition="'$(WSProjectGroupPath)' == ''">$(WSBasePath)$(WSProjectGroup)\</WSProjectGroupPath>
     <WSProjectGroupCommonPath Condition="'$(WSProjectGroupCommonPath)' == ''">$(WSProjectGroupPath)Common\</WSProjectGroupCommonPath>
     <WSProjectGroupCommonSourcePath Condition="'$(WSProjectGroupCommonSourcePath)' == ''">$(WSProjectGroupCommonPath)src\</WSProjectGroupCommonSourcePath>
-    <WSProjectGroupCommonResourcesPath Condition="'$(WSProjectGroupCommonResourcesPath)' == ''">$(WSProjectGroupCommonPath)res\</WSProjectGroupCommonResourcesPath>
+    <WSProjectGroupCommonResourcesPath Condition="'$(WSProjectGroupCommonResourcesPath)' == ''">$(WSProjectGroupCommonPath)resources\</WSProjectGroupCommonResourcesPath>
     <WSProjectGroupCommonLibrariesPath Condition="'$(WSProjectGroupCommonLibrariesPath)' == ''">$(WSProjectGroupCommonPath)runtimes\</WSProjectGroupCommonLibrariesPath>
     <WSProjectGroupCommonHeadersPath Condition="'$(WSProjectGroupCommonHeadersPath)' == ''">$(WSProjectGroupCommonPath)headers\</WSProjectGroupCommonHeadersPath>
+    <WSProjectGroupCommonXmlDocPath Condition="'$(WSProjectGroupCommonXmlDocPath)' == ''">$(WSProjectGroupCommonPath)doc\</WSProjectGroupCommonXmlDocPath>
     <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'source'">true</WSProjectIsPackable>
     <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'tools'">true</WSProjectIsPackable>
     <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'examples'">false</WSProjectIsPackable>
@@ -60,6 +61,7 @@
     <WSProjectResourcesPath Condition="'$(WSProjectResourcesPath)' == ''">$(WSProjectPath)res\</WSProjectResourcesPath>
     <WSProjectLibrariesPath Condition="'$(WSProjectLibrariesPath)' == ''">$(WSProjectPath)runtimes\</WSProjectLibrariesPath>
     <WSProjectHeadersPath Condition="'$(WSProjectHeadersPath)' == ''">$(WSProjectPath)headers\</WSProjectHeadersPath>
+    <WSProjectDocumentationPath Condition="'$(WSProjectDocumentationPath)' == ''">$(WSProjectPath)headers\</WSProjectDocumentationPath>
     <WSProjectCIConfigFile Condition="'$(WSProjectCIConfigFile)' == ''">$(WSProjectPath)azure-pipelines.yml</WSProjectCIConfigFile>
   </PropertyGroup>
 

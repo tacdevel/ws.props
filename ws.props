@@ -6,7 +6,7 @@
 =================================================================================================-->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="Exists('$(MSBuildThisFileDirectory)ws.overrides.props')" Project="$(MSBuildThisFileDirectory)ws.overrides.props"/>
+  <Import Condition="Exists('$(MSBuildThisFileDirectory)..\ws.overrides.props')" Project="$(MSBuildThisFileDirectory)..\ws.overrides.props"/>
 
   <PropertyGroup>
     <WSPath>$(MSBuildThisFileDirectory)</WSPath>

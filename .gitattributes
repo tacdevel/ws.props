@@ -1,0 +1,8 @@
+# Default Line Endings
+* text=auto
+
+# MSBuild Files
+*.props      text eol=crlf
+
+# Text Documents
+*.md         text

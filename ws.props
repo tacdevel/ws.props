@@ -2,30 +2,34 @@
 * FileName:             ws.props
 * Date:                 20181227
 * Copyright:            Copyright © 2017-2019 Thomas Corwin, et al. All Rights Reserved.
-* License:              https://github.com/tacdevel/tcdfx/blob/master/LICENSE.md
+* License:              https://github.com/tacdevel/ws.props/blob/master/LICENSE.md
 =================================================================================================-->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="Exists('$(MSBuildThisFileDirectory)..\ws.config.props')" Project="$(MSBuildThisFileDirectory)..\ws.config.props"/>
+  <Import Condition="Exists('$(MSBuildThisFileDirectory)ws.overrides.props')" Project="$(MSBuildThisFileDirectory)ws.overrides.props"/>
 
   <PropertyGroup>
-    <WSPath Condition="'$(WSPath)' == ''">$(MSBuildThisFileDirectory)</WSPath>
-    <WSBasePath Condition="'$(WSBasePath)' == ''">$(MSBuildThisFileDirectory)..\</WSBasePath>
+    <WSPath>$(MSBuildThisFileDirectory)</WSPath>
+    <WSBasePath>$(MSBuildThisFileDirectory)..\</WSBasePath>
   </PropertyGroup>
 
   <PropertyGroup>
-    <WSRepositoryURL Condition="'$(WSRepositoryURL)' == ''"></WSRepositoryURL>
+    <WSRepositoryBaseURL Condition="'$(WSRepositoryBaseURL)' == ''">https://github.com/tacdevel/</WSRepositoryBaseURL>
+    <WSRepositoryName Condition="'$(WSRepositoryName)' == ''"></WSRepositoryName>
+    <WSRepositoryURL Condition="'$(WSRepositoryURL)' == ''">$(WSRepositoryBaseURL)$(WSRepositoryName)</WSRepositoryURL>
     <WSRepositoryType Condition="'$(WSRepositoryType)' == ''">git</WSRepositoryType>
   </PropertyGroup>
 
   <PropertyGroup>
+    <WSAuthors Condition="'$(WSAuthors)' == ''">Thomas Corwin, et al.</WSAuthors>
+    <WSCopyright Condition="'$(WSCopyright)' == ''">Copyright © 2017-2019 Thomas Corwin, et al. All Rights Reserved.</WSCopyright>
+    <WSLicenseType Condition="'$(WSLicenseType)' == ''">MIT</WSLicenseType>
     <WSIncludeLicenseFile Condition="'$(WSIncludeLicenseFile)' == ''">true</WSIncludeLicenseFile>
     <WSIncludeThirdPartyNoticesFile Condition="'$(WSIncludeThirdPartyNoticesFile)' == ''">true</WSIncludeThirdPartyNoticesFile>
-    <WSAuthors Condition="'$(WSAuthors)' == ''"></WSAuthors>
-    <WSCopyright Condition="'$(WSCopyright)' == ''"></WSCopyright>
-    <WSLicenseType Condition="'$(WSLicenseType)' == ''">MIT</WSLicenseType>
+    <WSIncludeReleaseNotesFile Condition="'$(WSIncludeReleaseNotesFile)' == ''">true</WSIncludeReleaseNotesFile>
     <WSLicenseFile Condition="'$(WSLicenseFile)' == ''">$(WSBasePath)LICENSE.md</WSLicenseFile>
     <WSThirdPartyNoticesFile Condition="'$(WSThirdPartyNoticesFile)' == ''">$(WSBasePath)THIRD_PARTY_NOTICES.md</WSThirdPartyNoticesFile>
+    <WSReleaseNotesFile Condition="'$()' == ''">$(WSBasePath)RELEASE_NOTES.md</WSReleaseNotesFile>
     <WSReleaseNotesURL Condition="'$(WSReleaseNotesURL)' == ''">$(WSRepositoryURL)/blob/master/RELEASE_NOTES.md</WSReleaseNotesURL>
   </PropertyGroup>
 
@@ -41,39 +45,46 @@
 
   <PropertyGroup>
     <WSProjectName Condition="'$(WSProjectName)' == ''">$(MSBuildProjectName)</WSProjectName>
+    
     <WSProjectGroup Condition="$(WSProjectName.EndsWith('Example')) AND '$(WSProjectGroup)' == ''">examples</WSProjectGroup>
     <WSProjectGroup Condition="$(WSProjectName.EndsWith('Tool')) AND '$(WSProjectGroup)' == ''">tools</WSProjectGroup>
     <WSProjectGroup Condition="'$(WSProjectGroup)' == ''">source</WSProjectGroup>
+    
     <WSProjectGroupPath Condition="'$(WSProjectGroupPath)' == ''">$(WSBasePath)$(WSProjectGroup)\</WSProjectGroupPath>
+    
     <WSProjectGroupCommonPath Condition="'$(WSProjectGroupCommonPath)' == ''">$(WSProjectGroupPath)Common\</WSProjectGroupCommonPath>
     <WSProjectGroupCommonSourcePath Condition="'$(WSProjectGroupCommonSourcePath)' == ''">$(WSProjectGroupCommonPath)src\</WSProjectGroupCommonSourcePath>
-    <WSProjectGroupCommonResourcesPath Condition="'$(WSProjectGroupCommonResourcesPath)' == ''">$(WSProjectGroupCommonPath)resources\</WSProjectGroupCommonResourcesPath>
     <WSProjectGroupCommonLibrariesPath Condition="'$(WSProjectGroupCommonLibrariesPath)' == ''">$(WSProjectGroupCommonPath)runtimes\</WSProjectGroupCommonLibrariesPath>
     <WSProjectGroupCommonHeadersPath Condition="'$(WSProjectGroupCommonHeadersPath)' == ''">$(WSProjectGroupCommonPath)headers\</WSProjectGroupCommonHeadersPath>
-    <WSProjectGroupCommonXmlDocPath Condition="'$(WSProjectGroupCommonXmlDocPath)' == ''">$(WSProjectGroupCommonPath)doc\</WSProjectGroupCommonXmlDocPath>
-    <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'source'">true</WSProjectIsPackable>
-    <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'tools'">true</WSProjectIsPackable>
-    <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'examples'">false</WSProjectIsPackable>
+    
     <WSProjectDescription Condition="'$(WSProjectDescription)' == ''">$(WSProjectName) v$(WSVersionPrefix)</WSProjectDescription>
     <WSProjectDescription Condition="'$(WSVersionSuffix)' != ''">$(WSProjectName) v$(WSVersionPrefix)-$(WSVersionSuffix)</WSProjectDescription>
+    
     <WSProjectPath Condition="'$(WSProjectPath)' == ''">$(WSProjectGroupPath)$(WSProjectName)\</WSProjectPath>
     <WSProjectSourcePath Condition="'$(WSProjectSourcePath)' == ''">$(WSProjectPath)src\</WSProjectSourcePath>
-    <WSProjectResourcesPath Condition="'$(WSProjectResourcesPath)' == ''">$(WSProjectPath)res\</WSProjectResourcesPath>
     <WSProjectLibrariesPath Condition="'$(WSProjectLibrariesPath)' == ''">$(WSProjectPath)runtimes\</WSProjectLibrariesPath>
     <WSProjectHeadersPath Condition="'$(WSProjectHeadersPath)' == ''">$(WSProjectPath)headers\</WSProjectHeadersPath>
-    <WSProjectDocumentationPath Condition="'$(WSProjectDocumentationPath)' == ''">$(WSProjectPath)headers\</WSProjectDocumentationPath>
-    <WSProjectCIConfigFile Condition="'$(WSProjectCIConfigFile)' == ''">$(WSProjectPath)azure-pipelines.yml</WSProjectCIConfigFile>
   </PropertyGroup>
 
   <PropertyGroup>
     <WSBuildBasePath Condition="'$(WSBuildBasePath)' == ''">$(WSBasePath)build\</WSBuildBasePath>
-    <WSBuildGroupPath Condition="'$(WSBuildGroupPath)' == ''">$(WSBuildBasePath)$(WSProjectGroup)\</WSBuildGroupPath>
-    <WSBuildBaseOutputPath Condition="'$(WSBuildBaseOutputPath)' == ''">$(WSBuildGroupPath)bin\$(MSBuildProjectName)\</WSBuildBaseOutputPath>
+    <WSBuildProjectGroupPath Condition="'$(WSBuildProjectGroupPath)' == ''">$(WSBuildBasePath)$(WSProjectGroup)\</WSBuildProjectGroupPath>
+    <WSBuildProjectPath Condition="'$(WSBuildProjectPath)' == ''">$(WSBuildProjectGroupPath)$(WSProjectName)\</WSBuildProjectPath>
+    <WSBuildBaseOutputPath Condition="'$(WSBuildBaseOutputPath)' == ''">$(WSBuildProjectPath)bin\</WSBuildBaseOutputPath>
     <WSBuildOutputPath Condition="'$(WSBuildOutputPath)' == ''">$(WSBuildBaseOutputPath)$(Configuration)\</WSBuildOutputPath>
-    <WSBuildBaseIntermediateOutputPath Condition="'$(WSBuildBaseIntermediateOutputPath)' == ''">$(WSBuildGroupPath)obj\$(MSBuildProjectName)\</WSBuildBaseIntermediateOutputPath>
+    <WSBuildBaseIntermediateOutputPath Condition="'$(WSBuildBaseIntermediateOutputPath)' == ''">$(WSBuildProjectPath)obj\$(MSBuildProjectName)\</WSBuildBaseIntermediateOutputPath>
     <WSBuildIntermediateOutputPath Condition="'$(WSBuildIntermediateOutputPath)' == ''">$(WSBuildBaseIntermediateOutputPath)$(Configuration)\</WSBuildIntermediateOutputPath>
-    <WSBuildPackageOutputPath Condition="'$(WSBuildPackageOutputPath)' == ''">$(WSBuildGroupPath)pkg\</WSBuildPackageOutputPath>
-    <WSBuildDocumentationOutputPath Condition="'$(WSBuildDocumentationOutputPath)' == ''">$(WSBuildGroupPath)doc\</WSBuildDocumentationOutputPath>
-    <WSBuildDocumentationFile Condition="'$(WSBuildDocumentationFile)' == ''">$(WSBuildDocumentationOutputPath)$(WSBuildProjectName).xml</WSBuildDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'source'">true</WSProjectIsPackable>
+    <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'tools'">true</WSProjectIsPackable>
+    <WSProjectIsPackable Condition="'$(WSProjectIsPackable)' == '' AND '$(WSProjectGroup)' == 'examples'">false</WSProjectIsPackable>
+    <WSBuildPackageOutputPath Condition="'$(WSBuildPackageOutputPath)' == ''">$(WSBuildProjectPath)pkg\</WSBuildPackageOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <WSBuildDocumentationOutputPath Condition="'$(WSBuildDocumentationOutputPath)' == ''">$(WSBuildProjectPath)doc\</WSBuildDocumentationOutputPath>
+    <WSBuildDocumentationFile Condition="'$(WSBuildDocumentationFile)' == ''">$(WSBuildDocumentationOutputPath)$(WSProjectName).xml</WSBuildDocumentationFile>
   </PropertyGroup>
 </Project>
